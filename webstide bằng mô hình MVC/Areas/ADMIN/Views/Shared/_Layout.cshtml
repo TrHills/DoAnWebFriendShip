@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Quản Trị Hệ Thống</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            <img src="~/Img/logo web.png" / style="width:4%;">
+            <a class="navbar-brand logo d-flex align-items-center" style="font-size:150%;" >
+                <b><span>F</span><span>r</span><span>i</span><span>e</span><span>n</span><span>d</span> Ship</b>
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Dashboard", "Index", "Admin", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Quản Lý Sản Phẩm", "Index", "SanPham", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Quản Lý Đơn Hàng", "OrderList", "Orders", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Quản Lý Người Dùng", "UserList", "Users", null, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Thống Kê", "Statistics", "Reports", null, new { @class = "nav-link" })</li>
+                </ul>
+            </div>
+
+            <a class="navbar-brand" style="font-size: 130%;"><b>Quản Trị Hệ Thống</b></a>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="footer" style="margin-top: 10px">
+            <div class="footer-col">
+                <p class="title"><strong>Thông Tin Hỗ Trợ</strong></p>
+                <p class="line"><span>Gọi hỗ trợ:&nbsp;</span><a>0941142005</a></p>
+            </div>
+            <div class="footer-col">
+                <p class="title"><strong>Liên Hệ</strong></p>
+                <p class="line"><span>EMAIL:&nbsp;</span><a>huflit.com.vn</a></p>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

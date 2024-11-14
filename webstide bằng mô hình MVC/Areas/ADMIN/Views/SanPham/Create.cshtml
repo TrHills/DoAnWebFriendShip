@@ -1,0 +1,146 @@
+﻿@model webstide_bằng_mô_hình_MVC.Models.Product
+
+@{
+    ViewBag.Title = "Tạo sản phẩm";
+    Layout = "~/Areas/ADMIN/Views/Shared/_Layout.cshtml";
+}
+
+<p><br /></p>
+
+<div class="overlay-wrapper">
+    <div class="overlay">
+        @using (Html.BeginForm("Create", "SanPham", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <style>
+                body {
+                    background-color: #f8f9fa;
+                }
+
+                .overlay {
+                    background: white;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    margin: auto;
+                    width: 26%;
+                }
+
+                .form-horizontal {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .form-group {
+                    margin-bottom: 20px;
+                }
+
+                .control-label {
+                    font-weight: bold;
+                }
+
+                .btn {
+                    background-color: #007bff; /* Màu nền cho nút */
+                    color: white; /* Màu chữ cho nút */
+                    border: none; /* Xóa viền cho nút */
+                    border-radius: 5px; /* Bo góc cho nút */
+                    padding: 10px 20px; /* Padding cho nút */
+                    cursor: pointer; /* Con trỏ khi di chuột qua nút */
+                }
+
+                    .btn:hover {
+                        background-color: #0056b3;
+                    }
+
+                textarea {
+                    width: 100%;
+                    height: 200px;
+                    padding: 12px 5px;
+                    border: 2px solid #087409;
+                    box-sizing: border-box;
+                    background-color: whitesmoke;
+                    resize: none;
+                    border-radius: 10px;
+                }
+
+                .text-center {
+                    text-align: center;
+                }
+            </style>
+
+            <div class="form-horizontal">
+                <h4 style="text-align:center;">THÊM SẢN PHẨM</h4><br />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryID, "Loại sản phẩm", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductName, "Tên sản phẩm", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductDecription, "Mô tả", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.TextAreaFor(model => model.ProductDecription, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductDecription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductPrice, "Đơn giá", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductImage, "Hình ảnh", htmlAttributes: new { @class = "control-label" })
+                    <div>
+                        @Html.TextBoxFor(model => model.ProductImage, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" value="Tạo" class="btn" />
+                </div>
+            </div>
+        }
+
+        <div style="text-align:center;">
+            <br />
+            @Html.ActionLink("Trở về", "Index", null, new { @class = "nutBack" })
+            <style>
+                .nutBack {
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    color: white;
+                    font-weight: bold;
+                    background-color: #d3d3d3; 
+                    text-decoration: none; 
+                    display: inline-block; 
+                    transition: background-color 0.3s; 
+                }
+
+                    .nutBack:hover {
+                        background-color: #b0b0b0; 
+                    }
+    
+            </style>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

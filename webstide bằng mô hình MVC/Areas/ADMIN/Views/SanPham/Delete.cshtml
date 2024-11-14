@@ -1,0 +1,18 @@
+﻿@model webstide_bằng_mô_hình_MVC.Models.Product
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Areas/ADMIN/Views/Shared/_Layout.cshtml";
+}
+
+<p><br /></p>
+<h3>Bạn có chắc chắn muốn xóa sản phẩm này: <strong>@Html.DisplayFor(model => model.ProductName)</strong>?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div>
+    <input type="submit" value="Xóa" class="btn btn-danger" /> |
+    <a href="@Url.Action("Index", "SanPham")" class="btn btn-primary">Quay lại danh sách</a>
+</div>
+}

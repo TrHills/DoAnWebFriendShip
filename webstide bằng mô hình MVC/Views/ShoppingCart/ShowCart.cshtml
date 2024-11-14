@@ -1,0 +1,151 @@
+﻿@model webstide_bằng_mô_hình_MVC.Models.Cart
+
+@{
+    ViewBag.Title = "ShowCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GIỎ HÀNG</h2>
+<a href="@Url.Action("ProductList", "Products")" class="btn btn-primary">Tiếp tục mua hàng</a>
+
+<style>
+    .formGioHang {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .formGioHang th, .formGioHang td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .formGioHang th {
+            background-color: #f2f2f2;
+            font-size: large;
+        }
+
+        .formGioHang td img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .formGioHang input[type="number"] {
+            width: 60px;
+            text-align: right;
+        }
+
+        .formGioHang .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+            .formGioHang .btn-danger:hover {
+                background-color: #c82333;
+            }
+
+        .formGioHang tfoot td {
+            font-size: x-large;
+            color: crimson;
+        }
+
+    .checkout-form {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+        .checkout-form input[type="text"],
+        .checkout-form input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .checkout-form input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .checkout-form input[type="submit"]:hover {
+                background-color: #218838;
+            }
+</style>
+
+@if (Model != null)
+{
+    <table class="formGioHang">
+        <thead>
+            <tr>
+                <th>Tên Sản phẩm</th>
+                <th>Hình</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                decimal total = item._quantity * (decimal)item._product.ProductPrice;
+                <tr>
+                    <td>@Html.DisplayFor(model => item._product.ProductName)</td>
+                    <td><img src="@Html.DisplayFor(Model => item._product.ProductImage)" width="40px;" />
+                    <td align="right">@item._product.ProductPrice.ToString("#,##0").Replace(',', '.')</td>
+                    <td>
+                        @using (Html.BeginForm("Update_Cart_Quantity", "ShoppingCart"))
+                        {
+                            <input type="hidden" name="idPro" value="@item._product.ProductID" />
+                            <input type="number" name="carQuantity" value="@item._quantity" style="text-align:right" />
+                            <input type="submit" value="Cập nhật" class="btn btn-warning" />
+                        }
+                    </td>
+                    <td align="right">@total.ToString("#,##0").Replace(',', '.')</td>
+                    <td>
+                        <a href="@Url.Action("RemoveCart", "ShoppingCart", new { id = item._product.ProductID })" class="btn-danger">Xóa</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" style="text-align:right;">Tổng tiền:</td>
+                <td colspan="2" style="color:black;">@Model.Total_money().ToString("#,##0").Replace(',', '.') Đồng</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    @using (Html.BeginForm("CheckOut", "ShoppingCart", FormMethod.Post, new { @class = "checkout-form" }))
+                    {
+                        <label>Mã Khách hàng:</label>
+                        <input type="number" name="CodeCustomer" required />
+
+                        <label>Địa chỉ giao hàng:</label>
+                        <input type="text" name="AddressDeliverry" required />
+
+                        <input type="submit" value="Thanh toán" />
+                        <a href="@Url.Action("Create", "Customers")" class="btn btn-success">Đăng ký</a>
+                    }
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <h2 style="text-align:center;"><br />Giỏ hàng rỗng!</h2>
+}

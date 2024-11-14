@@ -1,0 +1,62 @@
+﻿@model webstide_bằng_mô_hình_MVC.Models.Product
+
+@{
+    ViewBag.Title = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p><br /></p>
+
+<div class="product-details">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ProductImage" alt="@Model.ProductName" class="img-fluid" />
+        </div>
+        <div class="col-md-6">
+            <h2>@Model.ProductName</h2>
+            <h4 style="font-size:40px;">
+                @* dinh dang gia *@
+                Giá:  @if (Model.ProductPrice % 1 == 0) 
+                {
+                    @String.Format("{0:N0}", Model.ProductPrice) 
+                }
+                else
+                {
+                    @String.Format("{0:N2}", Model.ProductPrice)
+                }
+                vnđ
+            </h4>
+            <h6>Danh mục: @Html.DisplayFor(model => model.Category.CategoryName)</h6>
+            <p><strong>Mô tả:</strong></p>
+            <p>@Html.DisplayFor(model => model.ProductDecription)</p>
+            <p>
+                <a href="/ShoppingCart/AddToCart/@Model.ProductID" class="button button-buy"><b>Mua</b></a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-details {
+        margin: 20px;
+    }
+
+        .product-details img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    .button {
+        padding: 10px 15px;
+        font-size: 0.9em;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+    }
+    .button-buy {
+        background-color: #e74c3c;
+        text-decoration: none;
+    }
+</style>
+    

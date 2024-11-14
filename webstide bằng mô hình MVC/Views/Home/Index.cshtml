@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <style type="text/css">
+            #banner {
+                background-image: url("../Content/images/bannertgdd.jpg");
+                /* background-size:cover;*/
+                background-position: center;
+                height: 20px;
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                color: black;
+            }
+
+            .banner-content {
+                text-align: center;
+                color: black;
+            }
+
+                .banner-content h2 {
+                    font-size: 2.5rem;
+                }
+
+                .banner-content p {
+                    font-size: 2rem;
+                }
+
+            .btn {
+                display: inline-block;
+                padding: 5px 20px;
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            #product {
+                text-align: center;
+            }
+
+                #product h3 {
+                    font-size: 2rem;
+                }
+
+            .prodcontainer {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .product-item img {
+                max-width: 150px;
+            }
+
+            .product-item h3 {
+                font-size: 16px;
+                color: darkred;
+                margin: 10px 0px;
+            }
+
+            .product-item {
+                width: 20%;
+            }
+
+            .proddes {
+                font-size: 16px;
+                color: black;
+            }
+
+            .prodpri {
+                font-weight: bold;
+                font-size: 18px;
+                color: red;
+            }
+
+            /*#####################################*/
+
+            .slideshow-container {
+                width: 100%;
+                max-width: 1200px;
+                position: relative;
+                margin: auto;
+            }
+
+            .slideshow-image {
+                display: none;
+                width: 100%;
+            }
+
+            .active {
+                display: block;
+            }
+
+
+            .dot-container {
+                display: none;
+                justify-content: center;
+                margin-top: 10px;
+            }
+
+            .dot {
+                height: 15px;
+                width: 15px;
+                margin: 5px;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            .active-dot {
+                background-color: #717171;
+            }
+        </style>
+
+        <div class="banner-content">
+            <div class="slideshow-container">
+                <img class="slideshow-image active" src="~/Img/ads/1.jpg" />
+                <img class="slideshow-image " src="~/Img/ads/2.png" />
+                <img class="slideshow-image " src="~/Img/ads/3.png" />
+                <img class="slideshow-image " src="~/Img/ads/4.jpg" />
+                <img class="slideshow-image " src="~/Img/ads/5.jpg" />
+                <img class="slideshow-image " src="~/Img/ads/6.png" />
+                <img class="slideshow-image " src="~/Img/ads/7.jpg" />
+                <img class="slideshow-image " src="~/Img/ads/8.png" />
+                <img class="slideshow-image " src="~/Img/ads/9.png" />
+                <img class="slideshow-image " src="~/Img/ads/10.jpg" />
+                <div class="dot-container">
+                    <span class="dot active-dot" onclick="showImage(0)"></span>
+                    <span class="dot" onclick="showImage(1)"></span>
+                    <span class="dot" onclick="showImage(2)"></span>
+                    <span class="dot" onclick="showImage(3)"></span>
+                    <span class="dot" onclick="showImage(4)"></span>
+                    <span class="dot" onclick="showImage(5)"></span>
+                    <span class="dot" onclick="showImage(6)"></span>
+                    <span class="dot" onclick="showImage(7)"></span>
+                    <span class="dot" onclick="showImage(8)"></span>
+                    <span class="dot" onclick="showImage(9)"></span>
+                </div>
+            </div>
+            <h2><br />CHÀO MỪNG ĐẾN VỚI TRANG WEB SỐ 1 VIỆT NAM</h2>
+            <p>Hàng Ngàn Sản Phẩm Đang Được Rao Bán</p>
+            <div>
+                <style>
+                    .no-underline {
+                        text-decoration: none;
+                        color: black;
+                    }
+                </style>
+                <form>
+                    <button style="background-color: orange;" class="btn">
+                        <b><b></b>@Html.ActionLink("Bắt đầu mua sắm", "ProductList", "Products", null, new { @class = "no-underline" })</b>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <body>
+            @* JS *@
+            <script>
+                const adressBtn = document.querySelector('#adress-form');
+                const adressClose = document.querySelector('#adress-close');
+
+                if (adressBtn && adressClose) {
+                    adressBtn.addEventListener("click", function () {
+                        document.querySelector('.adress-form').style.display = "flex";
+                    });
+
+                    adressClose.addEventListener("click", function () {
+                        document.querySelector('.adress-form').style.display = "none";
+                    });
+                }
+
+                let currentSlide = 0;
+                const slides = document.querySelectorAll(".slideshow-image");
+                const dots = document.querySelectorAll(".dot");
+
+                function showImage(index) {
+                    slides[currentSlide].classList.remove("active");
+                    dots[currentSlide].classList.remove("active-dot");
+
+                    currentSlide = index;
+
+                    slides[currentSlide].classList.add("active");
+                    dots[currentSlide].classList.add("active-dot");
+                }
+
+                function autoSlide() {
+                    let nextSlide = (currentSlide + 1) % slides.length;
+                    showImage(nextSlide);
+                }
+
+                setInterval(autoSlide, 3000); // Tự động chuyển ảnh sau 3 giây
+            </script>
+            <!-- ################################## -->
+        </body>
+    </div>
+</div>
